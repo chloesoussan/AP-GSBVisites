@@ -19,6 +19,30 @@ class MedecinRepository extends ServiceEntityRepository
         parent::__construct($registry, Medecin::class);
     }
 
+    public function findLastMedecin(int $nb=3){
+        return $this->createQueryBuilder('n')
+            ->setMaxResults($nb)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Medecin[] Returns an array of Medecin objects
+     */
+    public function findMedecinByNom(string $nom): array
+    {
+        $entityManager =$this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT n 
+            FROM App\Entity\Medecin n
+            WHERE n.nom LIKE :nom
+            '
+        )->setParameter('nom','%'.$nom.'%');
+
+        return $query->getResult();
+    }
+
+
     // /**
     //  * @return Medecin[] Returns an array of Medecin objects
     //  */

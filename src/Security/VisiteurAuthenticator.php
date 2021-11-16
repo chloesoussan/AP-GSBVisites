@@ -88,6 +88,7 @@ class VisiteurAuthenticator extends AbstractFormLoginAuthenticator implements Pa
             throw new UsernameNotFoundException('Login could not be found.');
         }*/
      $user = $this->entityManager->getRepository(Visiteur::class)->findOneBy(['login' => $credentials['username']]);
+
      if (!$user)
      {
          throw new UserNotFoundException(sprintf('User "%s" not found', $credentials['username']));
@@ -102,7 +103,7 @@ class VisiteurAuthenticator extends AbstractFormLoginAuthenticator implements Pa
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
-        //return $this->passwordEncoder->isPasswordValid($user, $credentials['mdp']);
+        dump($this->passwordEncoder->isPasswordValid($user, $credentials['password']));
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
         if(!$this->csrfTokenManager->isTokenValid($token))
             {

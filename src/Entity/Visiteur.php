@@ -17,7 +17,7 @@ class Visiteur implements UserInterface
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="string")
      */
     private $id;
@@ -72,6 +72,7 @@ class Visiteur implements UserInterface
     {
         return $this->id;
     }
+
 
     public function getNom(): ?string
     {
@@ -245,18 +246,7 @@ class Visiteur implements UserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
+        return ['ROLE_USER'];
     }
 
     /**
@@ -289,5 +279,19 @@ class Visiteur implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+    public function __toString()
+    {
+        return $this->nom ." ". $this->prenom;
+        // TODO: Implement __toString() method.
+    }
+    /**
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+
+        return (string) $this->login;
+        // TODO: Implement getUserIdentifier() method.
     }
 }

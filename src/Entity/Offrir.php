@@ -69,4 +69,5 @@ class Offrir
 
         return $this;
     }
+
 }

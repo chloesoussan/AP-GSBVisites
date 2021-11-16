@@ -14,8 +14,8 @@ class Rapport
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="string")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
      */
     private $id;
 
@@ -41,7 +41,7 @@ class Rapport
     private $medecin;
 
     /**
-     * @ORM\OneToMany(targetEntity=Offrir::class, mappedBy="rapport", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Offrir::class, mappedBy="rapport", orphanRemoval=true, cascade={"persist"})
      */
     private $offrirs;
 
@@ -58,7 +58,7 @@ class Rapport
 
 
 
-    public function getId(): ?string
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -123,7 +123,7 @@ class Rapport
     {
         if (!$this->offrirs->contains($offrir)) {
             $this->offrirs[] = $offrir;
-            $offrir->setOffrirs($this);
+            $offrir->setRapport($this);
         }
 
         return $this;
@@ -133,8 +133,8 @@ class Rapport
     {
         if ($this->offrirs->removeElement($offrir)) {
             // set the owning side to null (unless already changed)
-            if ($offrir->getOffrirs() === $this) {
-                $offrir->setOffrirs(null);
+            if ($offrir->getRapport() === $this) {
+                $offrir->setRapport(null);
             }
         }
 
@@ -152,6 +152,13 @@ class Rapport
 
         return $this;
     }
+    public function __toString()
+    {
+        return $this->date;
+    }
+
+
+
 
 
 }

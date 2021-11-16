@@ -2,6 +2,7 @@
 {# templates/base.html.twig #}
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8" />
     <title>{% block title %}Welcome!{% endblock %}</title>
@@ -9,30 +10,50 @@
             rel="stylesheet"
             href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
+
     {% block stylesheets %}{% endblock %}
+
 </head>
 <body>
+
+
 <nav
         class="navbar navbar-expand-lg navbar-light bg-light"
         style="height: 70px;"
 >
-    <a class="navbar-brand" href="#">Gestion Visites - GSB</a>
+
+    <a class="navbar-brand" href="{{ path('accueil') }}">
+        <img src="https://arobinsite.files.wordpress.com/2018/01/projet-gsb-logo.png?w=167&h=167" alt="" width="100" height="74" class="d-inline-block align-text-top">
+        </a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
     <ul class="nav navbar-nav navbar-right">
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
+        <ul class="nav navbar-nav navbar-right">
+
+
+
+
+
+
+
         <AmpContent>
 
-            <li><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>
+
+
 
         </AmpContent>
 
         <NonAmpContent>
 
-            <li><a class="nav-link" href="{{ path('app_login') }}">Login</a></li>
+            <li><a class="nav-link" href="{{ path('app_login') }}">Logout</a></li>
 
 
         </NonAmpContent>
     </ul>
 </nav>
+
+
 {% block body %}{% endblock %} {% block javascripts %}{% endblock %}
 </body>
 </html>

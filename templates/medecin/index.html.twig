@@ -1,11 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion Visites - GSB{% endblock %}
-
-
+{% block title %}Medecin index{% endblock %}
 
 {% block body %}
-
 
 <div class="container-fluid">
     <div class="row">
@@ -13,7 +10,7 @@
             <div class="position-sticky pt-3">
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
-                        <a href="#" class="nav-link active" aria-current="page">
+                        <a href="{{ path('accueil') }}" class="nav-link active" aria-current="page">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
                                 <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
                             </svg>
@@ -174,29 +171,64 @@
             </div>
         </nav>
 
-        <div class=" card text-center ">
-
-            <h1 class="card-header alert alert-primary" >Bienvenue, {{ app.user.username|default('undefined') }}</h1>
-            <div class="card-body">
-                <h5 class="card-title">Gestion visites - GSB</h5>
-                <p class="card-text">Vous êtes sur l'application de notre laboratoire pharmaceutique :
-
-                </p>
-
-                <p class="card-text">- Vous pouvez gérer vos rapports & vos médecins </p>
-
-                <img src="https://www.softfluent.fr/wp-content/uploads/2020/12/SFT_Cloud_Sante.png" class="card-img-top" alt="..." width="900" height="304">
-
-            </div>
-        </div>
-        <br>
 
 
 
 
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <br>
+            <br>
+            <form class="form-inline my-2 my-lg-0" method="get" actioon="">
+                <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Search" name="nom">
+                <a class="btn btn-outline-success " type="submit" >Rechercher</a>
+            </form>
+            <br>
+            <br>
+    <a type="button" class="btn btn-outline-primary"  href="{{ path('medecin_new') }}">Créer un nouveau médecin</a>
+    <br>
+    <br>
+    <table class="table table-blue table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Adresse</th>
+                <th>Tel</th>
+                <th>SpecialiteComplementaire</th>
+                <th>Departement</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for medecin in medecins %}
+            <tr>
+                <td>{{ medecin.id }}</td>
+                <td>{{ medecin.nom }}</td>
+                <td>{{ medecin.prenom }}</td>
+                <td>{{ medecin.adresse }}</td>
+                <td>
+                    <a href="callto:skype_account" >{{ medecin.tel }}</a>
+                </td>
+                <td>{{ medecin.specialiteComplementaire }}</td>
+                <td>{{ medecin.departement }}</td>
+                <td>
 
+                    <a type="button" class="btn btn-outline-dark" href="{{ path('medecin_show', {'id': medecin.id}) }}">Afficher</a>
+                    <br>
+                    <br>
+                    <a type="button" class="btn btn-outline-dark" href="{{ path('medecin_edit', {'id': medecin.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-
+</main>
         <div class="container">
             <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
                 <p class="col-md-4 mb-0 text-muted">&copy; 2021 Chloé Soussan</p>
@@ -212,5 +244,4 @@
                 </ul>
             </footer>
         </div>
-
 {% endblock %}

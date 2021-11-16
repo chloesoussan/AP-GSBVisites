@@ -13,8 +13,8 @@ class Medecin
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="string")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
      */
     private $id;
 
@@ -53,7 +53,7 @@ class Medecin
      */
     private $rapports;
 
-    public function getId(): ?string
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -158,5 +158,10 @@ class Medecin
         }
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->nom ." ". $this->prenom;
+        // TODO: Implement __toString() method.
     }
 }
