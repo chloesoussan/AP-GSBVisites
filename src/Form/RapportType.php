@@ -7,6 +7,7 @@ use App\Entity\Offrir;
 use App\Entity\Rapport;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -30,6 +31,17 @@ class RapportType extends AbstractType
                 'prototype' => true,
                 'by_reference' => false,
                 'entry_options' => ['label' => false]
+            ])
+            ->add('motif', ChoiceType::class, [
+                'choices' => [
+                    'Demande du médecin' => 'Demande du médecin',
+                    'Recommandation de confrère' => 'Recommandation de confrère',
+                    'Prise de contact' => 'Prise de contact',
+                    'Visite annuelle' => 'Visite annuelle',
+                    'Installation nouvelle' => 'Installation nouvelle',
+                    'Positif' => 'Positif'
+
+                ]
             ])
 
 

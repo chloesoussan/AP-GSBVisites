@@ -6,6 +6,7 @@ use App\Entity\Rapport;
 use App\Form\RapportType;
 use App\Repository\RapportRepository;
 use App\Repository\VisiteurRepository;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,16 +17,24 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class RapportController extends AbstractController
 {
+
     /**
      * @Route("/", name="rapport_index", methods={"GET"})
      */
     public function index(RapportRepository $rapportRepository): Response
     {
-        $loggedUser =  $this->getUser();
+        $request = Request::createFromGlobals();
+        $query = $request->query->get('date');
+        $loggedUser = $this->getUser();
 
+
+        if ($query != '' && $query != Null && strtotime($query)) {
+            $rapports = $rapportRepository->findRapportByDate(date_create($query));
+        } else {
+            $rapports = $rapportRepository->findBy(['visiteur' => $loggedUser]);
+        }
         return $this->render('rapport/index.html.twig', [
-            //'rapports' => $rapportRepository->findAll(),
-            'rapports' =>$rapportRepository->findBy(['visiteur'=> $loggedUser]),
+            'rapports' => $rapports
         ]);
     }
 

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\MedecinRepository;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +36,10 @@ class Medecin
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex(
+     *     pattern="/(0)[0-9]{9}/",
+     *     message="Numéro de téléphone erroné"
+     * )
      */
     private $tel;
 

@@ -18,7 +18,7 @@ class MedecinType extends AbstractType
             ->add('tel')
             ->add('specialiteComplementaire')
             ->add('departement')
-            ->add('rapport')
+            //->add('rapport')
         ;
     }
 
